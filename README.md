@@ -7,7 +7,7 @@ This is a simple find and replace utility for DOCX files. Simple way to take a D
 Via Composer
 
 ``` bash
-$ composer require Nguyenhiep/docxfindandreplace
+$ composer require nguyenhiep/docxfindandreplace
 ```
 
 ## Usage
