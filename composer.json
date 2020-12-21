@@ -1,5 +1,5 @@
 {
-    "name": "Nguyenhiep/docxfindandreplace",
+    "name": "nguyenhiep/docxfindandreplace",
     "description": "Find and replace variables in a DOCX template.",
     "type": "library",
     "require-dev": {
