@@ -1,5 +1,5 @@
 <?php
-namespace Campo\DocxFindAndReplace;
+namespace Nguyenhiep\DocxFindAndReplace;
 
 class Docx
 {
@@ -58,7 +58,7 @@ class Docx
 
         $wrappedItems = [];
         foreach ($items as $key => $item) {
-            $wrappedItems['{' . $key . '}'] = $item;
+            $wrappedItems[$key] = $item;
         }
 
         $this->items = $wrappedItems;

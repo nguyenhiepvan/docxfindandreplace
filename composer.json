@@ -1,5 +1,5 @@
 {
-    "name": "campo/docxfindandreplace",
+    "name": "Nguyenhiep/docxfindandreplace",
     "description": "Find and replace variables in a DOCX template.",
     "type": "library",
     "require-dev": {
@@ -8,14 +8,14 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Joe Campo",
-            "email": "jcampo@gmail.com"
+            "name": "Nguyễn Văn Hiệp",
+            "email": "nguyenhiepvan.bka@gmail.com"
         }
     ],
     "require": {},
     "autoload": {
         "psr-4": {
-            "Campo\\DocxFindAndReplace\\": "src"
+            "Nguyenhiep\\DocxFindAndReplace\\": "src"
         }
     }
 }

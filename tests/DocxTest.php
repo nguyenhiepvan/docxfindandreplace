@@ -1,6 +1,6 @@
 <?php
 
-use \Campo\DocxFindAndReplace\Docx;
+use \Nguyenhiep\DocxFindAndReplace\Docx;
 
 class DocxTest extends PHPUnit_Framework_TestCase
 {
@@ -9,22 +9,22 @@ class DocxTest extends PHPUnit_Framework_TestCase
         Docx::create(__DIR__ . "/test.docx")->replace(
             [
                 'FIRSTNAME' => 'Joe',
-                'LASTNAME' => 'Campo',
+                'LASTNAME' => 'Nguyenhiep',
                 'ADDRESS1' => '123 Main St',
                 'CITY' => 'Maple Heights',
                 'STATE' => 'OH',
                 'ZIPCODE' => '44137'
             ]
-        )->save(__DIR__ . '/joecampo.docx');
+        )->save(__DIR__ . '/joeNguyenhiep.docx');
 
-        $this->assertFileExists(__DIR__ . '/joecampo.docx');
+        $this->assertFileExists(__DIR__ . '/joeNguyenhiep.docx');
     }
 
     public function test_file_found_and_replaced()
     {
-        $contents =  $this->getDocxContents(__DIR__ . '/joecampo.docx');
+        $contents =  $this->getDocxContents(__DIR__ . '/joeNguyenhiep.docx');
 
-        $this->assertContains('Joe Campo', $contents);
+        $this->assertContains('Joe Nguyenhiep', $contents);
         $this->assertContains('123 Main St', $contents);
         $this->assertContains('Maple Heights', $contents);
         $this->assertContains('OH', $contents);
@@ -38,9 +38,9 @@ class DocxTest extends PHPUnit_Framework_TestCase
 
     public function test_file_is_deleted()
     {
-        unlink(__DIR__ . '/joecampo.docx');
+        unlink(__DIR__ . '/joeNguyenhiep.docx');
 
-        $this->assertFalse(file_exists(__DIR__ . '/joecampo.docx'));
+        $this->assertFalse(file_exists(__DIR__ . '/joeNguyenhiep.docx'));
     }
 
     private function getDocxContents($file)
