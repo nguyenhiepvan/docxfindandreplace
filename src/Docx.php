@@ -1,4 +1,5 @@
 <?php
+
 namespace Nguyenhiep\DocxFindAndReplace;
 
 class Docx
@@ -15,7 +16,7 @@ class Docx
 
     /**
      * Docx constructor.
-     * @param  string  $templateFile
+     * @param string $templateFile
      * @throws \Exception
      */
     public function __construct($templateFile)
@@ -30,7 +31,7 @@ class Docx
     /**
      * Set our docx template.
      *
-     * @param  string  $templateFile
+     * @param string $templateFile
      * @return static
      * @throws \Exception
      */
@@ -46,7 +47,7 @@ class Docx
     /**
      * Wrap our items to replace with curly braces.
      *
-     * @param  array  $items
+     * @param array $items
      * @return $this
      * @throws \Exception
      */
@@ -60,7 +61,6 @@ class Docx
         foreach ($items as $key => $item) {
             $wrappedItems[$key] = $item;
         }
-
         $this->items = $wrappedItems;
 
         return $this;
@@ -69,7 +69,7 @@ class Docx
     /**
      * Create & save our new docx file from the template.
      *
-     * @param  string  $destinationFile
+     * @param string $destinationFile
      * @throws \Exception
      */
     public function save($destinationFile)
@@ -96,7 +96,14 @@ class Docx
     private function createFromZip(\ZipArchive $zip)
     {
         $zip->open($this->templateFile . '.tmp');
-        $contents = str_replace(array_keys($this->items), $this->items, $zip->getFromName("word/document.xml"));
+        $contents = $zip->getFromName("word/document.xml");
+        foreach ($this->items as $key => $value) {
+            if (@preg_match($key, null) === false) {
+                $contents = str_replace($key, $value, $contents);
+            } else {
+                $contents = preg_replace($key, $value, $contents);
+            }
+        }
         $zip->deleteName("word/document.xml");
         $zip->addFromString("word/document.xml", $contents);
         $zip->close();
