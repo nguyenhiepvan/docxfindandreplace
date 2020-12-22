@@ -98,14 +98,20 @@ class Docx
         $zip->open($this->templateFile . '.tmp');
         $contents = $zip->getFromName("word/document.xml");
         foreach ($this->items as $key => $value) {
-            if (@preg_match($key, null) === false) {
-                $contents = str_replace($key, $value, $contents);
-            } else {
+            if ($this->isRegularExpression($key)) {
                 $contents = preg_replace($key, $value, $contents);
+            } else {
+                $contents = str_replace($key, $value, $contents);
+
             }
         }
         $zip->deleteName("word/document.xml");
         $zip->addFromString("word/document.xml", $contents);
         $zip->close();
+    }
+
+    private function isRegularExpression($string)
+    {
+        return @preg_match($string, '') !== FALSE;
     }
 }
