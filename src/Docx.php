@@ -96,7 +96,20 @@ class Docx
     private function createFromZip(\ZipArchive $zip)
     {
         $zip->open($this->templateFile . '.tmp');
-        $contents = $zip->getFromName("word/document.xml");
+
+        $contents = $zip->getFromName($name = "word/document.xml");
+        $contents = $this->replacing($contents);
+        $zip->deleteName($name);
+        $zip->addFromString($name, $contents);
+
+        $contents = $zip->getFromName($name = 'word/_rels/document.xml.rels');
+        $contents = $this->replacing($contents);
+        $zip->deleteName($name);
+        $zip->addFromString($name, $contents);
+        $zip->close();
+    }
+
+    private function replacing($contents){
         foreach ($this->items as $key => $value) {
             if ($this->isRegularExpression($key)) {
                 $contents = preg_replace($key, $value, $contents);
@@ -105,9 +118,8 @@ class Docx
 
             }
         }
-        $zip->deleteName("word/document.xml");
-        $zip->addFromString("word/document.xml", $contents);
-        $zip->close();
+        return
+            $contents;
     }
 
     private function isRegularExpression($string)
